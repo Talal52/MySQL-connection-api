@@ -18,7 +18,9 @@ func main() {
 
 	router := gin.Default()
 	router.POST("/user", controllers.PostUser)
-	router.GET("/view",controllers.GetUser)
+	router.GET("/view", controllers.GetUser)
+	router.GET("/view/:id", controllers.GetUserByID)
+	router.POST("/view/:id", controllers.UpdateUserById)
 
 	err = router.Run(":8080")
 	if err != nil {

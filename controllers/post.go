@@ -26,8 +26,8 @@ func PostUser(c *gin.Context) {
 	defer db.Close()
 
 	Query := `INSERT INTO users (name, email, age) VALUES (?, ?, ?)`
-	// body.ID = uuid.NewString()
 
+	
 	_, err = db.Exec(Query, body.Name, body.Email, body.Age)
 	if err != nil {
 		fmt.Println("Query execution error:", err)

@@ -10,8 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetUser(c *gin.Context) {
-
+func GetUserByID(c *gin.Context) {
 	db, err := database.Connection()
 	
 	if err != nil {
@@ -21,7 +20,8 @@ func GetUser(c *gin.Context) {
 	}
 	defer db.Close()
 
-	rows, err := db.Query(`SELECT * FROM users`)
+	id := c.Param("id")
+	rows, err := db.Query(`SELECT * FROM users WHERE id = ?`, id)
 	if err != nil {
 		fmt.Println("Failed to execute the query:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "database query error"})
@@ -33,7 +33,7 @@ func GetUser(c *gin.Context) {
 
 	for rows.Next() {
 		var user model.User
-		var createdAt string 
+		var createdAt string
 
 		err := rows.Scan(&user.ID, &user.Name, &user.Email, &user.Age, &createdAt)
 		if err != nil {
