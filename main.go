@@ -21,6 +21,7 @@ func main() {
 	router.GET("/view", controllers.GetUser)
 	router.GET("/view/:id", controllers.GetUserByID)
 	router.POST("/view/:id", controllers.UpdateUserById)
+	router.DELETE("/delete/:id",controllers.DeleteUserById)
 
 	err = router.Run(":8080")
 	if err != nil {

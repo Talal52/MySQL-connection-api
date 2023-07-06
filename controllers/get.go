@@ -13,7 +13,7 @@ import (
 func GetUser(c *gin.Context) {
 
 	db, err := database.Connection()
-	
+
 	if err != nil {
 		fmt.Println("Failed to connect to the database:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "database connection error"})
@@ -33,7 +33,7 @@ func GetUser(c *gin.Context) {
 
 	for rows.Next() {
 		var user model.User
-		var createdAt string 
+		var createdAt string
 
 		err := rows.Scan(&user.ID, &user.Name, &user.Email, &user.Age, &createdAt)
 		if err != nil {
